@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
-const recipeSchema = new mongoose.Schema(
+const noteSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -26,10 +26,10 @@ const recipeSchema = new mongoose.Schema(
   }
 );
 
-recipeSchema.plugin(AutoIncrement, {
+noteSchema.plugin(AutoIncrement, {
   inc_field: 'ticket', 
   id: 'ticketNums',
   start_seq: 199,
 });
 
-module.exports = mongoose.model('Recipe', recipeSchema);
+module.exports = mongoose.model('Note', noteSchema);
