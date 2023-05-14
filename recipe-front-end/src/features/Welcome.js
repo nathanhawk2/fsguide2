@@ -16,4 +16,6 @@ const Welcome = () => {
         </section>
     )
     return content
-}
+};
+
+export default Welcome;
