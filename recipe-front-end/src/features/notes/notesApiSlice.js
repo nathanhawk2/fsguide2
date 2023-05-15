@@ -1,14 +1,11 @@
-import {
-    createSelector,
-    createEntityAdapter
-} from "@reduxjs/toolkit";
-import { apiSlice } from "../../app/api/apiSlice"
+import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
+import { apiSlice } from "../../app/api/apiSlice";
 
 const notesAdapter = createEntityAdapter({
     sortComparer: (a, b) => (a.completed === b.completed) ? 0 : a.completed ? 1 : -1
-})
+});
 
-const initialState = notesAdapter.getInitialState()
+const initialState = notesAdapter.getInitialState();
 
 export const notesApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -35,20 +32,20 @@ export const notesApiSlice = apiSlice.injectEndpoints({
             }
         }),
     }),
-})
+});
 
 export const {
     useGetNotesQuery,
-} = notesApiSlice
+} = notesApiSlice;
 
 // returns the query result object
-export const selectNotesResult = notesApiSlice.endpoints.getNotes.select()
+export const selectNotesResult = notesApiSlice.endpoints.getNotes.select();
 
 // creates memoized selector
 const selectNotesData = createSelector(
     selectNotesResult,
     notesResult => notesResult.data // normalized state object with ids & entities
-)
+);
 
 //getSelectors creates these selectors and we rename them with aliases using destructuring
 export const {
@@ -56,4 +53,4 @@ export const {
     selectById: selectNoteById,
     selectIds: selectNoteIds
     // Pass in a selector that returns the notes slice of state
-} = notesAdapter.getSelectors(state => selectNotesData(state) ?? initialState)
+} = notesAdapter.getSelectors(state => selectNotesData(state) ?? initialState);
