@@ -33,15 +33,15 @@ const createNewUser = asyncHandler(async (req, res) => {
   // bcrypt hash
   const hashedPwd = await bcrypt.hash(password, 10)
 
-  const userObject = { username, "password": hashedPwd, roles}
+  const userObject = { username, "password": hashedPwd, roles }
 
   // create and store new user
   const user = await User.create(userObject)
 
   if (user) {
-    res.status(201).json({ message: `New user ${username} created! `})
+    res.status(201).json({ message: `New user ${username} created! ` })
   } else {
-    res.status(400).json({ message: 'Invalid user data received'});
+    res.status(400).json({ message: 'Invalid user data received' });
   };
 });
 
@@ -80,7 +80,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
   const updatedUser = await user.save();
 
-  res.json({ message: `${updatedUser.username} updated`});
+  res.json({ message: `${updatedUser.username} updated` });
 
 });
 
@@ -96,7 +96,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   const note = await Recipe.findOne({ user: id }).lean().exec()
 
   if (note) {
-    return res.status(400).json({ message: 'User has assigned recipes'})
+    return res.status(400).json({ message: 'User has assigned recipes' })
   };
 
   const user = await User.findById(id).exec()
